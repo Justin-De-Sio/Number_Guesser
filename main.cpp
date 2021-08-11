@@ -3,7 +3,14 @@
 #include <random>
 
 
-int ChooseRandomNumber(const auto &low, const auto &high) {
+int ChooseRandomNumber() {
+    auto low{0};
+    auto high{0};
+    std::cout << "minimum border :";
+    std::cin >> low;
+    std::cout << "\nminimum border:";
+    std::cin >> high;
+    std::cout << "\n";
 
     std::random_device random;
     std::uniform_int_distribution range{low, high};
@@ -12,34 +19,45 @@ int ChooseRandomNumber(const auto &low, const auto &high) {
 
 int askNumber(const auto &nickname) {
     int chosen_number;
-    std::cout << nickname << " choose a number between 0 and 100 :";
+    std::cout << nickname << " choose a number";
     std::cin >> chosen_number;
     std::cout << "\n";
     return chosen_number;
 }
 
 int main() {
-    const auto LOW{0};
-    const auto HIGH{100};
 
+    const auto cpt_max{5};
     std::string nickname;
     std::cout << "nickname :";
     std::cin >> nickname;
-
-    auto cpt{0};
-    std::cout << "Your Welcome ! You have 5 rounds !\n" ;
-    auto secret_number = ChooseRandomNumber(LOW, HIGH);
-    while (cpt<5) {
-        std::cout <<"("<< ++cpt << "/5) ";
-        auto chosen_number = askNumber(nickname);
-        if (chosen_number > secret_number)
-            std::cout << "it's smaller\n";
-        else if (chosen_number < secret_number)
-            std::cout << "it's bigger\n";
-        else if (chosen_number == secret_number) {
-            std::cout << "Good job, you win !" ;
-            break;
+    bool continuer = true;
+    while (continuer) {
+        auto cpt{0};
+        auto secret_number = ChooseRandomNumber();
+        system("cls");
+        std::cout << "Your Welcome ! You have 5 rounds !\n";
+        while (cpt < cpt_max) {
+            std::cout << "(" << ++cpt << "/" << cpt_max << ") ";
+            auto chosen_number = askNumber(nickname);
+            if (chosen_number > secret_number)
+                std::cout << "it's smaller\n";
+            else if (chosen_number < secret_number)
+                std::cout << "it's bigger\n";
+            else if (chosen_number == secret_number) {
+                std::cout << "Good job, you win !";
+                break;
+            }
+            if (cpt == cpt_max && chosen_number != secret_number)
+                std::cout << "You lost! The secret number was : " << secret_number << "\n";
         }
+
+
+        std::cout << "do you want to continue ? [yes/no] : ";
+        std::string question;
+        std::cin >> question;
+        if (question != "yes")
+            continuer = false;
     }
 
 
