@@ -3,12 +3,11 @@
 #include <random>
 
 
-int ChooseRandomNumber() {
-    auto low{0};
-    auto high{0};
+int chooseRandomNumber() {
+    auto low{0}, high{0};
     std::cout << "minimum border :";
     std::cin >> low;
-    std::cout << "\nminimum border:";
+    std::cout << "\nmaximum border:";
     std::cin >> high;
     std::cout << "\n";
 
@@ -31,10 +30,10 @@ int main() {
     std::string nickname;
     std::cout << "nickname :";
     std::cin >> nickname;
-    bool continuer = true;
-    while (continuer) {
+    bool continue_ = true;
+    while (continue_) {
         auto cpt{0};
-        auto secret_number = ChooseRandomNumber();
+        auto secret_number = chooseRandomNumber();
         system("cls");
         std::cout << "Your Welcome ! You have 5 rounds !\n";
         while (cpt < cpt_max) {
@@ -57,7 +56,7 @@ int main() {
         std::string question;
         std::cin >> question;
         if (question != "yes")
-            continuer = false;
+            continue_ = false;
     }
 
 
